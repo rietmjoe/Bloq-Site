@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGB – bloq</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #CF8852;
+      --platinum: #E8E7E3;
+      --platinum-dim: rgba(232,231,227,0.6);
+      --platinum-ghost: rgba(232,231,227,0.06);
+      --bg: #2e2f1e;
+      --border: rgba(232,231,227,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--platinum); line-height: 1.8; }
+
+    nav {
+      display: flex; align-items: center; padding: 24px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(46,47,30,0.96); backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--platinum); text-decoration: none; }
+    .nav-logo em { color: var(--orange); font-style: normal; }
+    .nav-right { margin-left: auto; display: flex; gap: 24px; }
+    .nav-right a { color: var(--platinum-dim); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s; }
+    .nav-right a:hover, .nav-right a.active { color: var(--orange); }
+
+    .hero { padding: 80px 48px 60px; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, rgba(82,83,51,0.3) 0%, transparent 60%); }
+    .label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 60px); color: var(--platinum); letter-spacing: -1.5px; line-height: 1.1; }
+    h1 em { color: var(--orange); font-style: italic; }
+    .hero p { color: var(--platinum-dim); font-size: 15px; font-weight: 300; margin-top: 16px; }
+
+    .layout { display: grid; grid-template-columns: 220px 1fr; max-width: 1100px; margin: 0 auto; }
+
+    .toc { padding: 48px 24px 48px 48px; position: sticky; top: 73px; align-self: start; border-right: 1px solid var(--border); max-height: calc(100vh - 73px); overflow-y: auto; }
+    .toc-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--platinum-dim); margin-bottom: 20px; }
+    .toc a { display: block; color: var(--platinum-dim); text-decoration: none; font-size: 13px; font-weight: 600; padding: 7px 0 7px 12px; margin-left: -12px; border-left: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+    .toc a:hover { color: var(--platinum); border-left-color: rgba(207,136,82,0.4); }
+    .toc a.active { color: var(--orange); border-left-color: var(--orange); }
+
+    .content { padding: 64px 48px 100px; }
+    .section { margin-bottom: 64px; }
+    .section-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--platinum); letter-spacing: -0.5px; margin-bottom: 20px; }
+    p { font-size: 15px; color: var(--platinum-dim); font-weight: 300; margin-bottom: 14px; }
+    p strong { color: var(--platinum); font-weight: 600; }
+    ul { list-style: none; margin: 10px 0 16px; }
+    ul li { font-size: 14px; color: var(--platinum-dim); font-weight: 300; padding: 7px 0 7px 20px; position: relative; border-bottom: 1px solid rgba(232,231,227,0.05); }
+    ul li:last-child { border-bottom: none; }
+    ul li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-size: 12px; }
+    ul li strong { color: var(--platinum); font-weight: 600; }
+    .highlight { background: rgba(207,136,82,0.08); border-left: 2px solid var(--orange); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+    .highlight p { margin: 0; font-size: 14px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 0 64px; }
+    a { color: var(--orange); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+
+    footer { padding: 40px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer p { font-size: 12px; color: rgba(232,231,227,0.3); margin: 0; }
+    footer a { color: var(--platinum-dim); font-size: 13px; font-weight: 600; }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { display: none; }
+      nav, .hero, footer { padding-left: 24px; padding-right: 24px; }
+      .content { padding: 48px 24px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">blo<em>q</em></a>
+  <div class="nav-right">
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html" class="active">AGB</a>
+    <a href="support.html">Support</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="label">Rechtliches</div>
+  <h1>Allgemeine<br><em>Geschäftsbedingungen</em></h1>
+  <p>Zuletzt aktualisiert: März 2026 · Gültig für die bloq iOS & Android App</p>
+</div>
+
+<div class="layout">
+  <div class="toc">
+    <div class="toc-title">Inhalt</div>
+    <a href="#geltung">01 Geltungsbereich</a>
+    <a href="#leistung">02 Leistungsbeschreibung</a>
+    <a href="#rollen">03 Nutzerrollen</a>
+    <a href="#pflichten">04 Nutzerpflichten</a>
+    <a href="#buchungen">05 Buchungssystem</a>
+    <a href="#pinnwand">06 Pinnwand</a>
+    <a href="#verfuegbarkeit">07 Verfügbarkeit</a>
+    <a href="#haftung">08 Haftung</a>
+    <a href="#kuendigung">09 Konto-Kündigung</a>
+    <a href="#aenderungen">10 Änderungen der AGB</a>
+    <a href="#recht">11 Anwendbares Recht</a>
+  </div>
+
+  <div class="content">
+
+    <div class="section" id="geltung">
+      <div class="section-num">01</div>
+      <h2>Geltungsbereich</h2>
+      <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der mobilen Applikation <strong>bloq</strong> auf iOS- und Android-Geräten. Mit der Registrierung und Nutzung der App akzeptierst du diese AGB in ihrer jeweils gültigen Fassung.</p>
+      <div class="highlight">
+        <p>Die Nutzung der App ist ab <strong>16 Jahren</strong> gestattet. Jüngere Nutzer benötigen die nachweisliche Einwilligung eines Erziehungsberechtigten.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="leistung">
+      <div class="section-num">02</div>
+      <h2>Leistungsbeschreibung</h2>
+      <p>bloq ist eine Plattform zur Verwaltung und Buchung gemeinsam genutzter Ressourcen in Wohngemeinschaften, Liegenschaften und Communities. Die App umfasst folgende Kernfunktionen:</p>
+      <ul>
+        <li>Buchungssystem für gemeinsame Ressourcen (Waschmaschinen, Fahrräder, Räume, Werkzeug u.a.)</li>
+        <li>Pinnwand zur internen Kommunikation innerhalb einer Wohneinheit</li>
+        <li>Timer-Funktion für laufende Ressourcennutzungen</li>
+        <li>Push-Benachrichtigungen für Buchungen und Ereignisse</li>
+        <li>Einladungssystem mit QR-Code und Einladungscode</li>
+        <li>Verwaltungsbereich für Verwalter (Ressourcen, Mitglieder, Einstellungen)</li>
+      </ul>
+      <p>bloq behält sich vor, den Funktionsumfang jederzeit zu erweitern, anzupassen oder einzuschränken.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="rollen">
+      <div class="section-num">03</div>
+      <h2>Nutzerrollen</h2>
+      <p><strong>Verwalter</strong> erstellen und verwalten Wohneinheiten sowie deren Ressourcen. Sie sind verantwortlich für:</p>
+      <ul>
+        <li>Korrekte Konfiguration der Einheit und Ressourcen</li>
+        <li>Verwaltung von Mitgliedern (Einladung, Entfernung)</li>
+        <li>Einhaltung geltender Vorschriften für die verwalteten Einheiten</li>
+        <li>Festlegung fairer Buchungsregeln (Limits, Quiet Hours, Nutzungszeiten)</li>
+      </ul>
+      <p><strong>Mitglieder</strong> nutzen Ressourcen im Rahmen der vom Verwalter festgelegten Regeln. Sie sind verpflichtet, gebuchte Ressourcen sorgfältig zu behandeln und die Nutzungsregeln einzuhalten.</p>
+      <p>Die Rollenwahl erfolgt einmalig bei der Registrierung. Eine nachträgliche Änderung ist nur durch den Verwalter möglich.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="pflichten">
+      <div class="section-num">04</div>
+      <h2>Nutzerpflichten</h2>
+      <p>Bei der Nutzung von bloq bist du verpflichtet:</p>
+      <ul>
+        <li><strong>Wahrheitsgemässe Angaben</strong> bei der Registrierung zu machen</li>
+        <li><strong>Zugangsdaten sicher aufzubewahren</strong> und nicht an Dritte weiterzugeben</li>
+        <li><strong>Buchungen zu stornieren</strong>, wenn sie nicht mehr benötigt werden</li>
+        <li>Keine <strong>missbräuchliche Nutzung</strong> (Spam, Belästigung, Blockieren von Ressourcen)</li>
+        <li>Keine <strong>rechtswidrigen Inhalte</strong> auf der Pinnwand zu veröffentlichen</li>
+        <li>Nur <strong>ein Konto pro Person</strong> zu betreiben</li>
+        <li>Uns <strong>unverzüglich zu informieren</strong> bei Verdacht auf unbefugte Kontonutzung</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="buchungen">
+      <div class="section-num">05</div>
+      <h2>Buchungssystem</h2>
+      <p>Buchungen sind <strong>verbindlich</strong> und reservieren die jeweilige Ressource für den gewählten Zeitraum.</p>
+      <ul>
+        <li>Es besteht <strong>kein Anspruch auf Verfügbarkeit</strong> einer bestimmten Ressource</li>
+        <li>Nicht benötigte Buchungen sind <strong>rechtzeitig zu stornieren</strong>, um anderen Mitgliedern den Slot zu ermöglichen</li>
+        <li>Wiederholtes Buchen ohne Nutzung kann vom Verwalter sanktioniert werden (z.B. Buchungslimit-Reduktion)</li>
+        <li>Das vom Verwalter festgelegte <strong>Buchungslimit</strong> (max. aktive Buchungen) ist verbindlich</li>
+        <li>Quiet Hours und Nutzungszeiten der jeweiligen Ressource sind einzuhalten</li>
+      </ul>
+      <div class="highlight">
+        <p>bloq übernimmt <strong>keine Haftung</strong> für Schäden, die durch die Nutzung oder Nichtnutzung gebuchter Ressourcen entstehen. Die Verantwortung liegt bei den Nutzern und Verwaltern.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="pinnwand">
+      <div class="section-num">06</div>
+      <h2>Pinnwand</h2>
+      <p>Die Pinnwand dient der internen Kommunikation innerhalb einer Wohneinheit. Es gelten folgende Regeln:</p>
+      <ul>
+        <li>Nutzer sind für ihre eigenen Beiträge <strong>selbst verantwortlich</strong></li>
+        <li>Keine <strong>rechtswidrigen, beleidigenden, diskriminierenden oder irreführenden</strong> Inhalte</li>
+        <li>Kein <strong>Spam</strong> oder kommerzielle Werbung</li>
+        <li>Verwalter können Beiträge <strong>jederzeit löschen</strong> oder pinnen</li>
+        <li>Verstösse können zur <strong>Entfernung aus der Einheit</strong> führen</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="verfuegbarkeit">
+      <div class="section-num">07</div>
+      <h2>Verfügbarkeit</h2>
+      <p>bloq ist bestrebt, die App dauerhaft verfügbar zu halten. Es besteht jedoch <strong>kein Anspruch auf unterbrechungsfreien Betrieb</strong>.</p>
+      <ul>
+        <li>Wartungsarbeiten können die Verfügbarkeit vorübergehend einschränken</li>
+        <li>Die App ist abhängig von Drittdiensten (insb. Google Firebase) – deren Ausfälle liegen ausserhalb unseres Einflussbereichs</li>
+        <li>Wir bemühen uns, geplante Wartungen im Voraus anzukündigen</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="haftung">
+      <div class="section-num">08</div>
+      <h2>Haftung</h2>
+      <p>bloq haftet nur für <strong>vorsätzlich oder grob fahrlässig</strong> verursachte Schäden. Im Übrigen gilt:</p>
+      <ul>
+        <li>Kein Ersatz für entgangene Nutzung einer Ressource aufgrund von System- oder Netzwerkausfällen</li>
+        <li>Keine Haftung für Schäden durch <strong>missbräuchliche Nutzung</strong> der App durch Dritte</li>
+        <li>Keine Haftung für Inhalte auf der Pinnwand – diese liegen in der Verantwortung der Nutzer</li>
+        <li>Nutzer haften für Schäden, die durch ihre missbräuchliche Nutzung entstehen</li>
+      </ul>
+      <p>Die Haftungsbeschränkung gilt im Rahmen des anwendbaren Schweizer Rechts.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="kuendigung">
+      <div class="section-num">09</div>
+      <h2>Konto-Kündigung</h2>
+      <p>Du kannst dein Konto jederzeit unter <strong>Profil → Einstellungen → Konto löschen</strong> entfernen.</p>
+      <ul>
+        <li>Alle personenbezogenen Daten werden innerhalb von <strong>30 Tagen</strong> gelöscht</li>
+        <li>Buchungsdaten werden gemäss Speicherdauer (12 Monate) aufbewahrt, dann gelöscht</li>
+        <li>Bist du Verwalter einer Einheit, empfehlen wir die <strong>Übertragung der Verwaltung</strong> vor der Löschung – andernfalls wird die Einheit aufgelöst</li>
+        <li>Mitgliedschaften in anderen Einheiten werden automatisch beendet</li>
+      </ul>
+      <p>bloq kann Konten bei schwerwiegenden Verstössen gegen diese AGB ohne Vorankündigung sperren oder löschen.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="aenderungen">
+      <div class="section-num">10</div>
+      <h2>Änderungen der AGB</h2>
+      <p>bloq behält sich vor, diese AGB jederzeit anzupassen. Bei wesentlichen Änderungen werden Nutzer mindestens <strong>14 Tage im Voraus</strong> per Push-Benachrichtigung oder E-Mail informiert.</p>
+      <p>Die weitere Nutzung der App nach Inkrafttreten der neuen AGB gilt als <strong>Zustimmung</strong>. Falls du den Änderungen nicht zustimmst, steht dir das Recht zur Konto-Löschung zu.</p>
+      <p>Die jeweils aktuelle Version ist stets unter <a href="https://usebloq.ch/agb.html">usebloq.ch/agb.html</a> abrufbar.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="recht">
+      <div class="section-num">11</div>
+      <h2>Anwendbares Recht & Gerichtsstand</h2>
+      <p>Diese AGB unterliegen <strong>Schweizer Recht</strong> unter Ausschluss der Kollisionsnormen. Als Gerichtsstand gilt der Sitz des App-Betreibers in der Schweiz.</p>
+      <p>Für Verbraucher in der EU bleiben zwingende Verbraucherschutzbestimmungen des jeweiligen Wohnsitzlandes vorbehalten.</p>
+      <p>Bei Streitigkeiten wende dich zunächst an <a href="mailto:hello@usebloq.ch">hello@usebloq.ch</a> – wir sind bemüht, Konflikte aussergerichtlich zu lösen.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 bloq · usebloq.ch</p>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;">
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html">AGB</a>
+    <a href="support.html">Support</a>
+    <a href="mailto:hello@usebloq.ch">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section[id]');
+  const tocLinks = document.querySelectorAll('.toc a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bloq – Gemeinsam buchen. Einfach.</title>
+  <meta name="description" content="bloq ist die App für gemeinsam genutzte Ressourcen in Wohneinheiten und Communities." />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #CF8852;
+      --moss: #525333;
+      --moss-dark: #3a3b24;
+      --moss-light: #6b6d44;
+      --platinum: #E8E7E3;
+      --platinum-dim: rgba(232,231,227,0.6);
+      --platinum-ghost: rgba(232,231,227,0.08);
+      --bg: #2e2f1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--platinum);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 20px 48px;
+      background: transparent;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(46,47,30,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232,231,227,0.08);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--platinum);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--platinum-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--platinum); }
+
+    .nav-cta {
+      background: var(--orange) !important;
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(82,83,51,0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(207,136,82,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,231,227,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,231,227,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--platinum-ghost);
+      border: 1px solid rgba(232,231,227,0.15);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 32px;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      color: var(--platinum);
+      max-width: 800px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      color: var(--orange);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--platinum-dim);
+      font-weight: 300;
+      max-width: 520px;
+      margin-top: 24px;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 32px rgba(207,136,82,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(207,136,82,0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--platinum);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid rgba(232,231,227,0.2);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(232,231,227,0.5);
+      background: var(--platinum-ghost);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--platinum-dim);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--platinum-dim);
+    }
+
+    /* ── FEATURES ── */
+    .section {
+      padding: 100px 48px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--platinum);
+      max-width: 560px;
+    }
+
+    .section-title em {
+      color: var(--orange);
+      font-style: italic;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 64px;
+      border: 1px solid rgba(232,231,227,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      padding: 40px 36px;
+      background: rgba(82,83,51,0.15);
+      border: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      background: rgba(82,83,51,0.35);
+      border-color: rgba(207,136,82,0.2);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(207,136,82,0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(207,136,82,0.2);
+    }
+
+    .feature-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--platinum);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--platinum-dim);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 100px 48px;
+      background: rgba(82,83,51,0.1);
+      border-top: 1px solid rgba(232,231,227,0.06);
+      border-bottom: 1px solid rgba(232,231,227,0.06);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 48px;
+      margin-top: 64px;
+      max-width: 900px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 64px;
+      color: rgba(207,136,82,0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+
+    .step h3 {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--platinum);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 120px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(207,136,82,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--platinum);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .cta-section h2 em {
+      color: var(--orange);
+      font-style: italic;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px;
+      border-top: 1px solid rgba(232,231,227,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--platinum);
+    }
+
+    .footer-logo em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--platinum-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--platinum); }
+
+    .footer-copy {
+      color: rgba(232,231,227,0.3);
+      font-size: 12px;
+      font-weight: 300;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .section, .how-section, .cta-section { padding: 72px 24px; }
+      footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">blo<em>q</em></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">So funktioniert's</a>
+    <a href="support.html">Support</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="#download" class="nav-cta">App laden</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Jetzt verfügbar auf iOS & Android</div>
+  <h1>Gemeinsam<br>buchen.<br><em>Einfach.</em></h1>
+  <p class="hero-sub">Waschmaschinen, Fahrräder, Gemeinschaftsräume – bloq macht die Verwaltung gemeinsamer Ressourcen in deiner Wohneinheit zum Kinderspiel.</p>
+  <div class="hero-actions">
+    <a href="#download" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="m10 8 6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
+      App herunterladen
+    </a>
+    <a href="#features" class="btn-secondary">
+      Mehr erfahren →
+    </a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-label">Features</div>
+  <h2 class="section-title">Alles was du brauchst – <em>nichts mehr.</em></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3>Einfach buchen</h3>
+      <p>Ressourcen mit wenigen Tippen buchen. Kalenderansicht, Zeitslots, Bestätigung – alles in einer App.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔑</div>
+      <h3>Einladungscodes</h3>
+      <p>Mitglieder per QR-Code oder Link einladen. Ablaufdaten und maximale Nutzungen konfigurierbar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3>Benachrichtigungen</h3>
+      <p>Automatische Push-Meldungen bei neuen Buchungen, Änderungen und bevorstehenden Terminen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚙️</div>
+      <h3>Flexible Regeln</h3>
+      <p>Quiet Hours, maximale Buchungsdauer, Buchungslimits – der Verwalter bestimmt die Spielregeln.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Zwei Rollen</h3>
+      <p>Verwalter verwalten Einheiten und Ressourcen. Mitglieder buchen. Klare Verantwortlichkeiten.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Sicher & privat</h3>
+      <p>Firebase-Authentifizierung, verschlüsselte Datenübertragung. Keine Werbung, kein Tracking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-label">So funktioniert's</div>
+  <h2 class="section-title">In drei Schritten <em>loslegen.</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">01</div>
+      <h3>Einheit erstellen</h3>
+      <p>Als Verwalter erstellst du deine Wohneinheit und fügst Ressourcen hinzu – Waschmaschine, Velo, Raum.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <h3>Mitglieder einladen</h3>
+      <p>Teile den Einladungscode per QR oder Link. Mitglieder treten in Sekunden bei.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <h3>Buchen & fertig</h3>
+      <p>Alle Mitglieder sehen verfügbare Slots und buchen direkt. Keine Zettelwirtschaft mehr.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="download">
+  <h2>Bereit für ein<br><em>stressfreies</em> Miteinander?</h2>
+  <p>bloq ist kostenlos verfügbar für iOS und Android.</p>
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+    <a href="#" class="btn-primary">📱 App Store</a>
+    <a href="#" class="btn-primary" style="background:#3a3b24;">▶ Google Play</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">blo<em>q</em></div>
+  <div class="footer-links">
+    <a href="support.html">Support</a>
+    <a href="changelog.html">Changelog</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html">AGB</a>
+    <a href="mailto:hello@usebloq.ch">Kontakt</a>
+  </div>
+  <div class="footer-copy">© 2026 bloq · usebloq.ch</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support – bloq</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #CF8852;
+      --moss: #525333;
+      --platinum: #E8E7E3;
+      --platinum-dim: rgba(232,231,227,0.6);
+      --platinum-ghost: rgba(232,231,227,0.06);
+      --bg: #2e2f1e;
+      --border: rgba(232,231,227,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--platinum);
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--platinum);
+      text-decoration: none;
+    }
+
+    .nav-logo em { color: var(--orange); font-style: normal; }
+
+    nav a.back {
+      margin-left: auto;
+      color: var(--platinum-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    nav a.back:hover { color: var(--platinum); }
+
+    .hero {
+      padding: 80px 48px 60px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(82,83,51,0.3) 0%, transparent 60%);
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      color: var(--platinum);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    h1 em { color: var(--orange); font-style: italic; }
+
+    .hero p {
+      color: var(--platinum-dim);
+      font-size: 16px;
+      font-weight: 300;
+      margin-top: 16px;
+      max-width: 480px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 48px 100px;
+    }
+
+    /* Search */
+    .search-wrap {
+      margin-bottom: 64px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      background: var(--platinum-ghost);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 24px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      color: var(--platinum);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-wrap input::placeholder { color: var(--platinum-dim); }
+    .search-wrap input:focus { border-color: var(--orange); }
+
+    /* Contact cards */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 72px;
+    }
+
+    .contact-card {
+      background: var(--platinum-ghost);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-card:hover {
+      background: rgba(82,83,51,0.3);
+      border-color: rgba(207,136,82,0.3);
+      transform: translateY(-2px);
+    }
+
+    .contact-card .icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .contact-card h3 {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--platinum);
+      margin-bottom: 6px;
+    }
+
+    .contact-card p {
+      font-size: 13px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+    }
+
+    /* FAQ */
+    .faq-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--platinum);
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--platinum);
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: left;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover { color: var(--orange); }
+
+    .faq-arrow {
+      font-size: 18px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      color: var(--orange);
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer p {
+      font-size: 14px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      padding-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p { font-size: 12px; color: rgba(232,231,227,0.3); }
+
+    footer a {
+      color: var(--platinum-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      nav, .hero, .container, footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">blo<em>q</em></a>
+  <a href="index.html" class="back">← Zurück</a>
+</nav>
+
+<div class="hero">
+  <div class="label">Support</div>
+  <h1>Wie können wir<br><em>helfen?</em></h1>
+  <p>Antworten auf häufige Fragen oder direkt Kontakt aufnehmen.</p>
+</div>
+
+<div class="container">
+
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Suche nach einem Thema..." oninput="filterFaq()" />
+  </div>
+
+  <div class="contact-grid">
+    <a href="mailto:hello@usebloq.ch" class="contact-card">
+      <div class="icon">✉️</div>
+      <h3>E-Mail</h3>
+      <p>hello@usebloq.ch – Antwort innerhalb von 24h</p>
+    </a>
+    <a href="changelog.html" class="contact-card">
+      <div class="icon">📋</div>
+      <h3>Changelog</h3>
+      <p>Neue Features und Bugfixes im Überblick</p>
+    </a>
+    <a href="datenschutz.html" class="contact-card">
+      <div class="icon">🛡️</div>
+      <h3>Datenschutz</h3>
+      <p>Wie wir deine Daten schützen</p>
+    </a>
+    <a href="agb.html" class="contact-card">
+      <div class="icon">📄</div>
+      <h3>AGB</h3>
+      <p>Nutzungsbedingungen der App</p>
+    </a>
+  </div>
+
+  <div class="faq-section">
+    <h2>Häufige Fragen</h2>
+
+    <div class="faq-item" data-tags="einladung beitreten code mitglied">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Wie trete ich einer Wohneinheit bei?
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Du benötigst einen Einladungscode von deinem Verwalter. Diesen kannst du in der App unter „Einheit beitreten" eingeben oder den QR-Code scannen. Nach der Bestätigung durch den Verwalter hast du Zugriff auf alle Ressourcen.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="buchung stornieren abbrechen löschen">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Wie storniere ich eine Buchung?
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Öffne „Meine Buchungen" in der App, wähle die betreffende Buchung und tippe auf „Stornieren". Bitte storniere nicht benötigte Buchungen möglichst früh, damit andere Mitglieder den Slot nutzen können.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="benachrichtigung push notification">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Ich erhalte keine Push-Benachrichtigungen.
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Prüfe in den Geräteeinstellungen ob Benachrichtigungen für bloq erlaubt sind. Auf iOS: Einstellungen → Mitteilungen → bloq. Auf Android: Einstellungen → Apps → bloq → Benachrichtigungen.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="passwort vergessen reset ändern">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Ich habe mein Passwort vergessen.
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Tippe auf der Login-Seite auf „Passwort vergessen" und gib deine E-Mail-Adresse ein. Du erhältst eine E-Mail mit einem Link zum Zurücksetzen. Prüfe auch deinen Spam-Ordner falls die Mail nicht ankommt.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="konto löschen account">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Wie lösche ich mein Konto?
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Du kannst dein Konto unter Profil → Einstellungen → Konto löschen entfernen. Alle deine Daten werden innerhalb von 30 Tagen gelöscht. Falls du Verwalter einer Einheit bist, wird die Einheit ebenfalls gelöscht.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="ressource hinzufügen verwalter erstellen">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Wie füge ich als Verwalter eine neue Ressource hinzu?
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Öffne den Verwalter-Bereich, wähle deine Einheit und tippe auf „Ressource hinzufügen". Du kannst Typ, Name, Ort, Quiet Hours und maximale Nutzungsdauer konfigurieren.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-tags="mitglied entfernen kick verwalter">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Kann ich als Verwalter ein Mitglied entfernen?
+        <span class="faq-arrow">↓</span>
+      </button>
+      <div class="faq-answer">
+        <p>Ja. Im Verwalter-Bereich unter „Mitglieder" kannst du jedes Mitglied entfernen. Das Mitglied verliert sofort den Zugriff auf die Einheit und deren Ressourcen.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 bloq · usebloq.ch</p>
+  <div style="display:flex; gap:24px;">
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html">AGB</a>
+    <a href="mailto:hello@usebloq.ch">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  function filterFaq() {
+    const q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      const tags = item.dataset.tags || '';
+      item.style.display = (text.includes(q) || tags.includes(q)) ? '' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

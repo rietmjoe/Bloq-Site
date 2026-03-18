@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog – bloq</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #CF8852;
+      --moss: #525333;
+      --platinum: #E8E7E3;
+      --platinum-dim: rgba(232,231,227,0.6);
+      --platinum-ghost: rgba(232,231,227,0.06);
+      --bg: #2e2f1e;
+      --border: rgba(232,231,227,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--platinum);
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--platinum);
+      text-decoration: none;
+    }
+
+    .nav-logo em { color: var(--orange); font-style: normal; }
+
+    nav a.back {
+      margin-left: auto;
+      color: var(--platinum-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    nav a.back:hover { color: var(--platinum); }
+
+    .hero {
+      padding: 80px 48px 60px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(82,83,51,0.3) 0%, transparent 60%);
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      color: var(--platinum);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    h1 em { color: var(--orange); font-style: italic; }
+    .hero p { color: var(--platinum-dim); font-size: 16px; font-weight: 300; margin-top: 16px; }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 48px 100px;
+    }
+
+    .release {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 40px;
+      margin-bottom: 72px;
+      position: relative;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .release:nth-child(1) { animation-delay: 0.05s; }
+    .release:nth-child(2) { animation-delay: 0.15s; }
+    .release:nth-child(3) { animation-delay: 0.25s; }
+
+    .release-meta {
+      padding-top: 4px;
+    }
+
+    .release-version {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+    }
+
+    .release-date {
+      font-size: 12px;
+      color: var(--platinum-dim);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .release-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-top: 10px;
+    }
+
+    .tag-new { background: rgba(207,136,82,0.2); color: var(--orange); }
+    .tag-fix { background: rgba(100,180,100,0.15); color: #7acc7a; }
+    .tag-improvement { background: rgba(100,150,255,0.15); color: #88aaff; }
+
+    .release-content {
+      border-left: 1px solid var(--border);
+      padding-left: 40px;
+    }
+
+    .release-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--platinum);
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .change-group {
+      margin-bottom: 20px;
+    }
+
+    .change-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--platinum-dim);
+      margin-bottom: 10px;
+    }
+
+    .change-list {
+      list-style: none;
+    }
+
+    .change-list li {
+      font-size: 14px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid rgba(232,231,227,0.05);
+    }
+
+    .change-list li:last-child { border-bottom: none; }
+
+    .change-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--orange);
+      opacity: 0.6;
+    }
+
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p { font-size: 12px; color: rgba(232,231,227,0.3); }
+    footer a { color: var(--platinum-dim); text-decoration: none; font-size: 13px; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      nav, .hero, footer { padding-left: 24px; padding-right: 24px; }
+      .container { padding: 48px 24px 80px; }
+      .release { grid-template-columns: 1fr; }
+      .release-content { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 24px; margin-top: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">blo<em>q</em></a>
+  <a href="index.html" class="back">← Zurück</a>
+</nav>
+
+<div class="hero">
+  <div class="label">Changelog</div>
+  <h1>Was ist <em>neu.</em></h1>
+  <p>Alle Updates, Verbesserungen und Bugfixes in der Übersicht.</p>
+</div>
+
+<div class="container">
+
+  <div class="release">
+    <div class="release-meta">
+      <div class="release-version">1.0.0</div>
+      <div class="release-date">März 2026</div>
+      <div class="release-tag tag-new">Launch</div>
+    </div>
+    <div class="release-content">
+      <div class="release-title">Erster Launch 🎉</div>
+      <div class="change-group">
+        <div class="change-group-label">Neu</div>
+        <ul class="change-list">
+          <li>Ressourcen erstellen und verwalten (Waschmaschine, Fahrrad, Raum, Werkzeug)</li>
+          <li>Buchungskalender mit freier Zeitwahl</li>
+          <li>Einladungscodes mit Ablaufdatum und max. Nutzungen</li>
+          <li>Quiet Hours pro Ressource konfigurierbar</li>
+          <li>Zwei Rollen: Verwalter und Mitglied</li>
+          <li>Push-Benachrichtigungen für Buchungen</li>
+          <li>QR-Code-Scanner für Einladungen</li>
+          <li>Auto-Complete-Timer für abgelaufene Buchungen</li>
+          <li>Dunkles Theme mit Moss & Persian Orange</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 bloq · usebloq.ch</p>
+  <div style="display:flex; gap:24px;">
+    <a href="support.html">Support</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="agb.html">AGB</a>
+  </div>
+</footer>
+
+</body>
+</html>
