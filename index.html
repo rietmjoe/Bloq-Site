@@ -456,6 +456,76 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── USE CASES ── */
+    .usecases-section {
+      padding: 100px 48px;
+      border-top: 1px solid rgba(232,231,227,0.06);
+    }
+
+    .usecases-intro {
+      font-size: 16px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      max-width: 680px;
+      margin-top: 20px;
+      line-height: 1.75;
+    }
+
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+    }
+
+    .usecase-card {
+      background: rgba(82,83,51,0.15);
+      border: 1px solid rgba(232,231,227,0.08);
+      border-radius: 18px;
+      padding: 32px 28px;
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    }
+
+    .usecase-card:hover {
+      background: rgba(82,83,51,0.32);
+      border-color: rgba(207,136,82,0.25);
+      transform: translateY(-3px);
+    }
+
+    .usecase-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .usecase-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--platinum);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .usecase-card p {
+      font-size: 13px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .usecases-closing {
+      margin-top: 48px;
+      font-size: 15px;
+      color: var(--platinum-dim);
+      font-weight: 300;
+      max-width: 680px;
+      padding: 20px 24px;
+      border-left: 2px solid var(--orange);
+      background: rgba(207,136,82,0.06);
+      border-radius: 0 12px 12px 0;
+      line-height: 1.75;
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
@@ -523,12 +593,12 @@
     <div class="feature-card">
       <div class="feature-icon">⚙️</div>
       <h3>Flexible Regeln</h3>
-      <p>Quiet Hours, maximale Buchungsdauer, Buchungslimits – Verwalter:innen bestimmen die Spielregeln.</p>
+      <p>Quiet Hours, maximale Buchungsdauer, Buchungslimits – Organisator:innen bestimmen die Spielregeln.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">👥</div>
       <h3>Zwei Rollen</h3>
-      <p>Verwalter:innen verwalten Einheiten und Ressourcen. Mitglieder buchen. Klare Verantwortlichkeiten.</p>
+      <p>Organisator:innen verwalten Einheiten und Ressourcen. Mitglieder buchen. Klare Verantwortlichkeiten.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🛡️</div>
@@ -546,7 +616,7 @@
     <div class="step">
       <div class="step-number">01</div>
       <h3>Einheit erstellen</h3>
-      <p>Als Verwalter:in erstellst du deine Wohneinheit und fügst Ressourcen hinzu – Waschmaschine, Velo, Raum.</p>
+      <p>Als Organisator:in erstellst du deine Wohneinheit und fügst Ressourcen hinzu – Waschmaschine, Velo, Raum.</p>
     </div>
     <div class="step">
       <div class="step-number">02</div>
@@ -559,6 +629,48 @@
       <p>Alle Mitglieder sehen verfügbare Slots und buchen direkt. Keine Zettelwirtschaft mehr.</p>
     </div>
   </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases-section" id="usecases">
+  <div class="section-label">Anwendungsfälle</div>
+  <h2 class="section-title">bloq funktioniert überall dort, wo Menschen Ressourcen <em>teilen.</em></h2>
+  <p class="usecases-intro">Ob Waschmaschine im Mehrfamilienhaus, Sitzungszimmer im Büro oder Tennisplatz im Verein – bloq macht die Buchung gemeinsamer Ressourcen einfach, fair und transparent.</p>
+
+  <div class="usecases-grid">
+    <div class="usecase-card">
+      <div class="usecase-icon">🏠</div>
+      <h3>Wohnen & Liegenschaften</h3>
+      <p>Waschmaschinen, Parkplätze, Gemeinschaftsräume, Werkzeug und E-Ladestationen – perfekt für Mehrfamilienhäuser und Wohnanlagen.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-icon">🏢</div>
+      <h3>Büro & Coworking</h3>
+      <p>Sitzungszimmer, Telefonkabinen, Poolfahrzeuge und AV-Equipment – ohne Doppelbuchungen und ohne Nachfragen.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-icon">⚽</div>
+      <h3>Sport & Vereine</h3>
+      <p>Tennisplätze, Squash-Courts, Boote, Grillplätze – faire Verteilung für alle Mitglieder, rund um die Uhr buchbar.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-icon">🎓</div>
+      <h3>Bildung & Institutionen</h3>
+      <p>Schulzimmer, Musikräume, Labore und Bibliotheksräume – strukturierte Nutzung ohne administrativen Aufwand.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-icon">🏕️</div>
+      <h3>Tourismus & Gastgewerbe</h3>
+      <p>Grillplätze auf Campingplätzen, Wellness-Anlagen in Hotels, Gemeinschaftsküchen in Hostels – reibungsloser Betrieb für Gäste.</p>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-icon">🏘️</div>
+      <h3>Gemeinden & Vereine</h3>
+      <p>Dorfhaus, Vereinslokal, Beamer, PA-Anlage oder Vereinsfahrzeuge – transparent verwaltet für alle Mitglieder.</p>
+    </div>
+  </div>
+
+  <p class="usecases-closing">Überall wo mehrere Menschen eine Ressource teilen, ersetzt bloq WhatsApp-Gruppen, Excel-Listen und Zettel an der Pinnwand.</p>
 </section>
 
 <!-- CTA -->
